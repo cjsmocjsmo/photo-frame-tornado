@@ -46,18 +46,6 @@ class MainHandler(tornado.web.RequestHandler):
     #     IDX = str(IDX)
     #     return IDX
     
-    # def get_global_count(self):
-    #     db_path = os.environ.get('PFDBPATH')
-    #     print(db_path)
-    #     conn = sqlite3.connect(db_path)
-    #     cursor = conn.cursor()
-    #     cursor.execute('SELECT * FROM globals')
-    #     result = cursor.fetchone()
-    #     conn.close()
-    #     COUNT = result[1]
-    #     COUNT = str(COUNT)
-    #     return COUNT
-    
     def get_addr(self, IDX):
         print("this is IDX IDX {}".format(IDX))
         db_path = os.environ.get('PFDBPATH')
