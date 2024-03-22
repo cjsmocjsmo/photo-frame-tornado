@@ -9,7 +9,7 @@ GLOBAL_IDX = 0
 GLOBAL_COUNT = 0
 
 def set_env_vars():
-    os.environ['PFPICPATH'] = '/media/charliepi/HD/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
+    os.environ['PFPICPATH'] = '/media/charliepi/HD/photo-frame-tornado/static/MasterPicsResize_SPLIT'
     os.environ['PFDBPATH'] = '/media/charliepi/HD/photo-frame-tornado/picinfo.db'
     os.environ['GLOBAL_IDX'] = '0'
     os.environ['GLOBAL_COUNT'] = '0'
