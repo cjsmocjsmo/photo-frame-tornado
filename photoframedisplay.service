@@ -1,0 +1,13 @@
+[Unit]
+Description=Start Firefox Kiosk
+After=graphical.target
+
+[Service]
+Type=simple
+User=pi
+Restart=always
+Environment="DISPLAY=:0"  # Set the display variable
+ExecStart=/usr/bin/nohup /usr/bin/firefox --kiosk http://192.168.0.26:8888/
+
+[Install]
+WantedBy=multi-user.target
