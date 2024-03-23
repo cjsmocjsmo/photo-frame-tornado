@@ -1,6 +1,6 @@
 Photo Frame
 
-This is a simple python project that displays my photo gallery on an old monitor using a raspberry pi 3 or a pico.
+This is a simple python project that displays my photo gallery on an old monitor using a raspberry pi 3 or a pico w.  All it does is fades an image in over 5 seconds, displays it for 30 seconds, and then fades the image out, changes the image and then repeats.  For me it's a way of working my image gallery instead of having it set there doing nothing.
 
 Hardware
     *KeyBoard
