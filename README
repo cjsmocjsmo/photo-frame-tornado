@@ -1,0 +1,19 @@
+#Photo Frame
+
+This is a simple python project that displays my photo gallery on an old monitor using a raspberry pi Pico.
+
+##Hardware
+*KeyBoard
+*Mouse
+*Monitor
+*Pico
+*SD Card 128GB
+
+##Software
+
+*Raspberry Pi OS
+*Python3
+*Tornado Web Server
+*Jinja templates
+*Sqlite3
+*FireFox in --kiosk mode
