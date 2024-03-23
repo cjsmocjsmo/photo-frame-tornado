@@ -1,12 +1,12 @@
 Photo Frame
 
-This is a simple python project that displays my photo gallery on an old monitor using a raspberry pi Pico.
+This is a simple python project that displays my photo gallery on an old monitor using a raspberry pi 3 or a pico.
 
 Hardware
     *KeyBoard
     *Mouse
     *Monitor
-    *Pico
+    *Raspberry Pi 3B+/Pico W
     *SD Card 128GB
 
 Software
@@ -18,5 +18,6 @@ Software
     *FireFox in --kiosk mode
 
 Setup
-    You will need to edit the env vars in photoframe.py to what you need.
+    You will need to edit the env vars in photoframe.py to your needs.
     You will also need to edit link paths in run.sh to your needs. 
+    The "sh run.sh"

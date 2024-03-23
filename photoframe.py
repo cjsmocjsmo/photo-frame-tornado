@@ -9,8 +9,8 @@ class Setup:
         self.global_count = 0
 
     def set_env_vars(self):
-        os.environ['PFPICPATH'] = '/home/pi/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
-        os.environ['PFDBPATH'] = '/home/pi/photo-frame-tornado/picinfo.db'
+        os.environ['PFPICPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
+        os.environ['PFDBPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/picinfo.db'
         print('Environment variables set')
 
     def connect_to_db(self):

@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=pi
-WorkingDirectory=/home/pi/photo-frame-tornado
+WorkingDirectory=/usr/share/photo-frame-tornado/photo-frame-tornado
 Restart=always
 ExecStart=/usr/bin/python3 photoframe.py
 
