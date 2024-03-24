@@ -18,6 +18,4 @@ Software
     *FireFox in --kiosk mode
 
 Setup
-    You will need to edit the env vars in photoframe.py to your needs.
-    You will also need to edit link paths in run.sh to your needs. 
-    The "sh run.sh"
+    
