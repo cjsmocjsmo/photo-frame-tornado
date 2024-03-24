@@ -168,7 +168,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.setup:
-        os.symlink('/home/pi/Pictures/MasterPicsResize_SPLIT', '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT')
+        try:
+            os.symlink('/home/pi/Pictures/MasterPicsResize_SPLIT', '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT')
+        except FileExistsError:
+            print("Symlink already exists")
         Setup().main()
     elif args.update:
         os.environ['PFPICPATH'] = args.update
