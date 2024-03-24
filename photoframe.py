@@ -6,7 +6,7 @@ import tornado.web
 GLOBAL_IDX = 0
 GLOBAL_COUNT = 0
 
-def set_env_vars(self):
+def set_env_vars():
         os.environ['PFPICPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
         os.environ['PFDBPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/picinfo.db'
         print('Environment variables set')
