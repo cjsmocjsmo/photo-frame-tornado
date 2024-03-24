@@ -20,7 +20,7 @@ fi
 
 if [ ! -f /etc/systemd/system/photoframeserver.service ]; then
     sudo cp /usr/share/photo-frame-tornado/photo-frame-tornado/photoframeserver.service /etc/systemd/system/;
-    sudo chmod 644 /etc/systemd/system/photoframeserver.service;
+    sudo chmod 755 /etc/systemd/system/photoframeserver.service;
     sudo chown root:root /etc/systemd/system/photoframeserver.service;
     sudo systemctl daemon-reload;
     sudo systemctl enable photoframeserver.service;
