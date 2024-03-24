@@ -46,6 +46,7 @@ class MainHandler(tornado.web.RequestHandler):
     async def get(self):
         zoo = self.set_global_count()
         GLOBAL_IDX = os.environ.get('GLOBAL_IDX')
+        print("Global_IDX1: {}".format(GLOBAL_IDX))
         GLOBAL_COUNT = os.environ.get('GLOBAL_COUNT')
         GLOBAL_IDX = int(GLOBAL_IDX)
         GLOBAL_COUNT = int(GLOBAL_COUNT)
