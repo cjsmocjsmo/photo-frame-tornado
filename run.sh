@@ -1,14 +1,18 @@
-if [ ! -d /usr/share/photo-frame-tornado ]; then
-    sudo mkdir /usr/share/photo-frame-tornado;
-    sudo chown pi:pi /usr/share/photo-frame-tornado;
-    sudo chmod 755 /usr/share/photo-frame-tornado;
-    cd /usr/share/photo-frame-tornado;
-    git clone https://github.com/cjsmocjsmo/photo-frame-tornado.git;
+#!/bin/bash
+
+if [ -f /etc/systemd/system/photoframeserver.service ]; then
+    sudo systemctl stop photoframeserver.service;
+fi
+
+if [ -f /etc/systemd/system/photoframedisplay.service ]; then
+    sudo systemctl stop photoframedisplay.service;
 fi
 
 if [ -d /usr/share/photo-frame-tornado/photo-frame-tornado ]; then
-    cd /usr/share/photo-frame-tornado/photo-frame-tornado;
-    git pull;
+    rm -rf /usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT;
+    cd /usr/share/photo-frame-tornado;
+    git clone https://github.com/cjsmocjsmo/photo-frame-tornado.git
+    cd;
 fi
 
 if [ ! -L /usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT ]; then
