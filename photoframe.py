@@ -3,8 +3,6 @@ import sqlite3
 import tornado.ioloop
 import tornado.web
 
-GLOBAL_IDX = 0
-GLOBAL_COUNT = 0
 
 def set_env_vars():
         os.environ['PFPICPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
@@ -12,6 +10,9 @@ def set_env_vars():
         print('Environment variables set')
 
 set_env_vars()
+
+GLOBAL_IDX = 1
+GLOBAL_COUNT = 0
 
 # Define the handler for the main page
 class MainHandler(tornado.web.RequestHandler):
