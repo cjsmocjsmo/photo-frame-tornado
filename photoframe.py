@@ -6,6 +6,13 @@ import tornado.web
 GLOBAL_IDX = 0
 GLOBAL_COUNT = 0
 
+def set_env_vars(self):
+        os.environ['PFPICPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
+        os.environ['PFDBPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/picinfo.db'
+        print('Environment variables set')
+
+set_env_vars()
+
 # Define the handler for the main page
 class MainHandler(tornado.web.RequestHandler):
     print("Global_IDX: {}".format(GLOBAL_IDX))
