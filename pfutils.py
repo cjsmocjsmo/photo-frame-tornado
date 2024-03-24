@@ -105,16 +105,71 @@ class Setup:
         else:
             print("db file exists nothing to do")
 
+class Update:
+    def __init__(self, update_path):
+        self.global_idx = 0
+        self.global_count = 0
+        self.update_dir = update_path
+
+    def set_env_vars(self):
+        os.environ['PFPICPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
+        os.environ['PFDBPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/picinfo.db'
+        print('Environment variables set')
+
+    def connect_to_db(self):
+        db_path = os.environ.get('PFDBPATH')
+        conn = sqlite3.connect(db_path)
+        return conn
+    
+    def walk_update_dir(self):
+        jpgs_to_update = []
+        for root, dirs, files in os.walk(self.update_dir):
+            for file in files:
+                if file.endswith('.jpg'):
+                    jpgs_to_update.append(os.path.join(root, file))
+        return jpgs_to_update
+    
+    def get_global_count(self):
+        conn = self.connect_to_db()
+        cursor = conn.cursor()
+        cursor.execute('SELECT MAX(pfidx) FROM picinfo')
+        result = cursor.fetchone()
+        if result[0] is not None:
+            self.global_count = result[0] + 1
+        conn.close()
+
+    def update_db(self):
+        conn = self.connect_to_db()
+        cursor = conn.cursor()
+        for jpg in self.jpgs_to_update:
+            cursor.execute('SELECT pfpath FROM picinfo WHERE pfpath = ?', (jpg,))
+            result = cursor.fetchone()
+            if result is None:
+                pfidx = self.global_count
+                pfpath = jpg
+                dir, filet = os.path.split(jpg)
+                kir, folder = os.path.split(dir)
+                _, folder2 = os.path.split(kir)
+                pfhttp = os.path.join('/static/', folder2, folder, filet)
+                cursor.execute('INSERT INTO picinfo (pfpath) VALUES (?)', (jpg,))
+        conn.commit()
+        conn.close()
+
+    def main(self):
+        self.set_env_vars()
+        self.get_global_count()
+        jpgs = self.walk_update_dir()
+        self.update_db()  
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Setup for photo frame tornado.')
     parser.add_argument('-s', '--setup', action='store_true', help='Setup the application')
     parser.add_argument('-u', '--update', type=str, help='Update the application with a given path')
     args = parser.parse_args()
 
-    setup = Setup()
-
     if args.setup:
-        setup.main()
+        os.symlink('/home/pi/Pictures/MasterPicsResize_SPLIT', '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT')
+        Setup().main()
     elif args.update:
         os.environ['PFPICPATH'] = args.update
-        setup.main()
+        Update("/home/pi/Pictures/updates").main()
