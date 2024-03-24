@@ -9,7 +9,7 @@ if [ -f /etc/systemd/system/photoframedisplay.service ]; then
 fi
 
 if [ -d /usr/share/photo-frame-tornado/photo-frame-tornado ]; then
-    rm -rf /usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT;
+    rm -rf /usr/share/photo-frame-tornado/photo-frame-tornado/static;
     cd /usr/share/photo-frame-tornado;
     git clone https://github.com/cjsmocjsmo/photo-frame-tornado.git
     cd;
