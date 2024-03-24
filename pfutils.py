@@ -174,5 +174,4 @@ if __name__ == "__main__":
             print("Symlink already exists")
         Setup().main()
     elif args.update:
-        os.environ['PFPICPATH'] = args.update
         Update("/home/pi/Pictures/updates").main()
