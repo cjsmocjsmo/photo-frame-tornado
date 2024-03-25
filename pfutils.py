@@ -1,16 +1,17 @@
 import os
 import sqlite3
 import argparse
+import shutil
+import subprocess
+import argparse
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Setup:
     def __init__(self):
         self.global_idx = 0
         self.global_count = 0
-
-    def set_env_vars(self):
-        os.environ['PFPICPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
-        os.environ['PFDBPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/picinfo.db'
-        print('Environment variables set')
 
     def connect_to_db(self):
         db_path = os.environ.get('PFDBPATH')
@@ -91,6 +92,27 @@ class Setup:
             conn.commit()
             conn.close()
 
+    def place_service_file():
+        
+        if not os.path.exists("/etc/systemd/system/photoframeserver.service"):
+            shutil.copy("photoframeserver.service", "/etc/systemd/system/")
+            subprocess.run(["chown", "root:root", "/etc/systemd/system/photoframeserver.service"])
+            subprocess.run(["chmod", "755", "/etc/systemd/system/photoframeserver.service"])
+            subprocess.run(["sudo", "systemctl", "enable", "photoframeserver"])
+            subprocess.run(["sudo", "systemctl", "daemon-reload"])
+            # subprocess.run(["sudo", "systemctl", "start", "photoframeserver"])
+        
+        if not os.path.exists("/etc/systemd/system/photoframedisplay.service"):
+            shutil.copy("photoframedisplay.service", "/etc/systemd/system/")
+            subprocess.run(["chown", "root:root", "/etc/systemd/system/photoframedisplay.service"])
+            subprocess.run(["chmod", "755", "/etc/systemd/system/photoframedisplay.service"])
+            subprocess.run(["sudo", "systemctl", "enable", "photoframedisplay"])
+            subprocess.run(["sudo", "systemctl", "daemon-reload"])
+            # subprocess.run(["sudo", "systemctl", "start", "photoframedisplay"])
+
+
+
+
     def main(self):
         print('Setting environment variables')
         self.set_env_vars()
@@ -102,6 +124,7 @@ class Setup:
             print('Walking the files')
             pf_files = self.walk_files()
             self.get_file_info(pf_files)
+            self.place_service_file()
         else:
             print("db file exists nothing to do")
 
@@ -163,15 +186,15 @@ class Update:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Setup for photo frame tornado.')
-    parser.add_argument('-s', '--setup', action='store_true', help='Setup the application')
+    parser.add_argument('-s', '--setup', type=str, help='Setup the application with a given path')
     parser.add_argument('-u', '--update', type=str, help='Update the application with a given path')
     args = parser.parse_args()
 
     if args.setup:
         try:
-            os.symlink('/home/pi/Pictures/MasterPicsResize_SPLIT', '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT')
+            os.symlink(args.setup, '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT')
         except FileExistsError:
             print("Symlink already exists")
         Setup().main()
     elif args.update:
-        Update("/home/pi/Pictures/updates").main()
+        Update(args.update).main()

@@ -18,4 +18,13 @@ Software
     *FireFox in --kiosk mode
 
 Setup
+    Clone this repository
+        mkdir /usr/share/photo-frame-tornado (adjust permissions as needed)
+        cd /usr/share/photo-frame-tornado
+        git clone https://github.com/cjsmocjsmo/photo-frame-tornado.git
+        cd /usr/share/photo-frame-tornado/photo-frame-tornado/
+
+    Link to Photo Gallery
+
+
     

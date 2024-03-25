@@ -2,16 +2,9 @@ import os
 import sqlite3
 import tornado.ioloop
 import tornado.web
+from dotenv import load_dotenv
 
-
-def set_env_vars():
-        os.environ['PFPICPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
-        os.environ['PFDBPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/picinfo.db'
-        os.environ['GLOBAL_IDX'] = '1'
-        os.environ['GLOBAL_COUNT'] = '0'
-        print('Environment variables set')
-
-set_env_vars()
+load_dotenv()
 
 GLOBAL_IDX = 1
 GLOBAL_COUNT = 0
