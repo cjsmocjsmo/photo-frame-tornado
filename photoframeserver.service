@@ -1,6 +1,6 @@
 [Unit]
 Description=Photo Frame Tornado Web Server
-After=network.target
+After=photoframeserver.service
 
 [Service]
 Type=simple
