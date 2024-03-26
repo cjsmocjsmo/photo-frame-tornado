@@ -1,6 +1,6 @@
 [Unit]
 Description=Start Firefox Kiosk
-After=graphical.target
+After=photoframeserver.service
 
 [Service]
 Type=simple
