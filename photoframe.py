@@ -51,7 +51,7 @@ class MainHandler(tornado.web.RequestHandler):
         
         if GLOBAL_IDX == 0:
             os.environ['GLOBAL_IDX'] = '1'
-            addr = "/static/MasterPicsResize_SPLIT/1/04728da2-0831-48ad-b75b-8b3cab8f9269.jpg"
+            addr = self.get_addr(int(GLOBAL_IDX))
             # Render the template and pass some data to it
             self.render("index.html", title="Photo Frame", addr=addr)
         elif GLOBAL_IDX <= GLOBAL_COUNT:
@@ -61,7 +61,7 @@ class MainHandler(tornado.web.RequestHandler):
             self.render("index.html", title="Photo Frame", addr=addr)
         elif GLOBAL_IDX > GLOBAL_COUNT:
             os.environ['GLOBAL_IDX'] = '1'
-            addr = "/static/MasterPicsResize_SPLIT/1/04728da2-0831-48ad-b75b-8b3cab8f9269.jpg"
+            addr = self.get_addr(int(GLOBAL_IDX))
             # Render the template and pass some data to it
             self.render("index.html", title="Photo Frame", addr=addr)
 

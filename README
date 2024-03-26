@@ -22,9 +22,13 @@ Setup
         mkdir /usr/share/photo-frame-tornado (adjust permissions as needed)
         cd /usr/share/photo-frame-tornado
         git clone https://github.com/cjsmocjsmo/photo-frame-tornado.git
-        cd /usr/share/photo-frame-tornado/photo-frame-tornado/
 
-    Link to Photo Gallery
+    Run the setup script
+        cd /usr/share/photo-frame-tornado/photo-frame-tornado
+        python3 ./pfutils.py -s /home/pi/Pictures/MyPictures
+        or if you need to update
+        python3 ./pfutils.py -u
+            *Note* update is not complete and has not been tested
 
 
     

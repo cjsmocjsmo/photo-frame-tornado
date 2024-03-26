@@ -112,6 +112,19 @@ class Setup:
 
 
 
+    def create_symlink(self):
+        source = '/home/pi/Pictures/MyPictures'
+        destination = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MyPictures'
+        try:
+            os.symlink(source, destination)
+            print(f'Symbolic link created from {source} to {destination}')
+        except FileExistsError:
+            print(f'Symbolic link already exists at {destination}')
+        except OSError as e:
+            print(f'Error creating symbolic link: {e}')
+
+    
+
 
     def main(self):
         print('Setting environment variables')
@@ -124,6 +137,7 @@ class Setup:
             print('Walking the files')
             pf_files = self.walk_files()
             self.get_file_info(pf_files)
+            self.create_symlink()
             self.place_service_file()
         else:
             print("db file exists nothing to do")
@@ -134,10 +148,10 @@ class Update:
         self.global_count = 0
         self.update_dir = update_path
 
-    def set_env_vars(self):
-        os.environ['PFPICPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
-        os.environ['PFDBPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/picinfo.db'
-        print('Environment variables set')
+    # def set_env_vars(self):
+    #     os.environ['PFPICPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT/'
+    #     os.environ['PFDBPATH'] = '/usr/share/photo-frame-tornado/photo-frame-tornado/picinfo.db'
+    #     print('Environment variables set')
 
     def connect_to_db(self):
         db_path = os.environ.get('PFDBPATH')
@@ -190,9 +204,12 @@ if __name__ == "__main__":
     parser.add_argument('-u', '--update', type=str, help='Update the application with a given path')
     args = parser.parse_args()
 
+    os.environ["PFLINKPATH"] = args.setup
+    static_path = os.getenv("PFPICPATH")
+
     if args.setup:
         try:
-            os.symlink(args.setup, '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MasterPicsResize_SPLIT')
+            os.symlink(args.setup, static_path)
         except FileExistsError:
             print("Symlink already exists")
         Setup().main()
