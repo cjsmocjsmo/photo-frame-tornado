@@ -110,25 +110,7 @@ class Setup:
             subprocess.run(["sudo", "systemctl", "daemon-reload"])
             # subprocess.run(["sudo", "systemctl", "start", "photoframedisplay"])
 
-
-
-    def create_symlink(self):
-        source = '/home/pi/Pictures/MyPictures'
-        destination = '/usr/share/photo-frame-tornado/photo-frame-tornado/static/MyPictures'
-        try:
-            os.symlink(source, destination)
-            print(f'Symbolic link created from {source} to {destination}')
-        except FileExistsError:
-            print(f'Symbolic link already exists at {destination}')
-        except OSError as e:
-            print(f'Error creating symbolic link: {e}')
-
-    
-
-
     def main(self):
-        print('Setting environment variables')
-        self.set_env_vars()
         print('Checking for and creating the database')
         self.check_create_db()
         if self.global_count == 0:
@@ -137,7 +119,6 @@ class Setup:
             print('Walking the files')
             pf_files = self.walk_files()
             self.get_file_info(pf_files)
-            self.create_symlink()
             self.place_service_file()
         else:
             print("db file exists nothing to do")
@@ -193,7 +174,6 @@ class Update:
         conn.close()
 
     def main(self):
-        self.set_env_vars()
         self.get_global_count()
         jpgs = self.walk_update_dir()
         self.update_db()  
@@ -208,10 +188,21 @@ if __name__ == "__main__":
     static_path = os.getenv("PFPICPATH")
 
     if args.setup:
+        # try:
+        #     os.symlink(args.setup, static_path)
+        # except FileExistsError:
+        #     print("Symlink already exists")
         try:
             os.symlink(args.setup, static_path)
+            print(f'Symbolic link created from {args.setup} to {static_path}')
+            print(f"Starting setup with path {args.setup}")
+            Setup().main()
         except FileExistsError:
-            print("Symlink already exists")
-        Setup().main()
+            print(f'Symbolic link already exists at {static_path}')
+            print(f"Starting setup with path {args.setup}")
+            Setup().main()
+        except OSError as e:
+            print(f'Error creating symbolic link: {e}')
+            os.exit(1)
     elif args.update:
         Update(args.update).main()
