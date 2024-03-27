@@ -203,6 +203,6 @@ if __name__ == "__main__":
             Setup().main()
         except OSError as e:
             print(f'Error creating symbolic link: {e}')
-            os.exit(1)
+            os._exit(1)
     elif args.update:
         Update(args.update).main()
