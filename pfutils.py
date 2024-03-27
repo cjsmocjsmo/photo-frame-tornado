@@ -92,7 +92,7 @@ class Setup:
             conn.commit()
             conn.close()
 
-    def place_service_file():
+    def place_service_file(self):
         
         if not os.path.exists("/etc/systemd/system/photoframeserver.service"):
             shutil.copy("photoframeserver.service", "/etc/systemd/system/")
