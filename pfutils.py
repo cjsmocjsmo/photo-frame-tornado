@@ -59,7 +59,7 @@ class Setup:
         flist = []
         pic_path = os.environ.get('PFPICPATH')
         print(pic_path)
-        for root, dirs, files in os.walk(pic_path):
+        for root, dirs, files in os.walk(pic_path, followlinks=True):
             for file in files:
                 if file.endswith('.jpg'):
                     print(file)
