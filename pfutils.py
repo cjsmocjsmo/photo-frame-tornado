@@ -55,7 +55,7 @@ class Setup:
             print('Database checked and created')
 
     def walk_files(self):
-        print("Starting walk_files")
+        print("Starting walk_files function")
         flist = []
         pic_path = os.environ.get('PFPICPATH')
         print(pic_path)
