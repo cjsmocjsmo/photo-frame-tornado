@@ -95,15 +95,36 @@ class Setup:
     def place_service_file(self):
         
         if not os.path.exists("/etc/systemd/system/photoframeserver.service"):
-            shutil.copy("photoframeserver.service", "/etc/systemd/system/")
-            subprocess.run(["chown", "root:root", "/etc/systemd/system/photoframeserver.service"])
-            subprocess.run(["chmod", "755", "/etc/systemd/system/photoframeserver.service"])
-            subprocess.run(["sudo", "systemctl", "enable", "photoframeserver"])
-            subprocess.run(["sudo", "systemctl", "daemon-reload"])
+            # shutil.copy("photoframeserver.service", "/etc/systemd/system/")
+            try:
+                subprocess.run("sudo", "cp", "-pvr", "photoframeserver.service", "/etc/systemd/system/")
+            except Exception as e:
+                print(f"Error copying photoframeserver.service: {e}")
+
+            try:
+                subprocess.run(["chown", "root:root", "/etc/systemd/system/photoframeserver.service"])
+            except Exception as e:
+                print(f"Error changing ownership of photoframeserver.service: {e}")
+
+            try:
+                subprocess.run(["chmod", "755", "/etc/systemd/system/photoframeserver.service"])
+            except Exception as e:
+                print(f"Error changing permissions of photoframeserver.service: {e}")
+
+            try:
+                subprocess.run(["sudo", "systemctl", "enable", "photoframeserver"])
+            except Exception as e:
+                print(f"Error enabling photoframeserver: {e}")
+
+            try:
+                subprocess.run(["sudo", "systemctl", "daemon-reload"])
+            except Exception as e:
+                print(f"Error reloading daemon: {e}")
             # subprocess.run(["sudo", "systemctl", "start", "photoframeserver"])
         
         if not os.path.exists("/etc/systemd/system/photoframedisplay.service"):
-            shutil.copy("photoframedisplay.service", "/etc/systemd/system/")
+            # shutil.copy("photoframedisplay.service", "/etc/systemd/system/")
+            subprocess.run(["sudo", "cp", "-pvr", "photoframedisplay.service", "/etc/systemd/system/"])
             subprocess.run(["chown", "root:root", "/etc/systemd/system/photoframedisplay.service"])
             subprocess.run(["chmod", "755", "/etc/systemd/system/photoframedisplay.service"])
             subprocess.run(["sudo", "systemctl", "enable", "photoframedisplay"])
