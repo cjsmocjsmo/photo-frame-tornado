@@ -165,7 +165,7 @@ class Setup:
             print('Walking the files')
             pf_files = self.walk_files()
             self.get_file_info(pf_files)
-            self.place_service_file()
+            # self.place_service_file()
         else:
             print("db file exists nothing to do")
 
