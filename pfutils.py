@@ -230,6 +230,8 @@ if __name__ == "__main__":
     parser.add_argument('-u', '--update', type=str, help='Update the application with a given path')
     args = parser.parse_args()
 
+    load_dotenv()
+    
     os.environ["PFLINKPATH"] = args.setup
     static_path = os.getenv("PFPICPATH")
 
