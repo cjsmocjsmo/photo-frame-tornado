@@ -231,7 +231,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     load_dotenv()
-    
+
     os.environ["PFLINKPATH"] = args.setup
     static_path = os.getenv("PFPICPATH")
 
@@ -241,7 +241,9 @@ if __name__ == "__main__":
         # except FileExistsError:
         #     print("Symlink already exists")
         try:
-            os.symlink(args.setup, static_path)
+            # os.symlink(args.setup, static_path)
+            subprocess.run(["ln", "-s", args.setup, static_path])
+
             print(f'Symbolic link created from {args.setup} to {static_path}')
             print(f"Starting setup with path {args.setup}")
             Setup().main()
