@@ -56,42 +56,40 @@ class Setup:
 
     def walk_files(self):
         print("Starting walk_files function")
-        flist = []
+        idx = 0
         pic_path = os.environ.get('PFPICPATH')
         print(pic_path)
         for root, dirs, files in os.walk(pic_path, followlinks=True):
             for file in files:
                 if file.endswith('.jpg'):
                     print(file)
-                    flist.append(os.path.join(root, file))
-        return flist
+                    fn = os.path.join(root, file)
+                    self.get_file_info(fn, idx)
 
-    def get_file_info(self, filez):
-        idx = 0
-        for file in filez:
-            idx += 1
-            pfpath = file
-            print(idx)
-            print(pfpath)
-            dir, filet = os.path.split(file)
-            kir, folder = os.path.split(dir)
-            _, folder2 = os.path.split(kir)
-            # pfhttp = os.path.join('/static/', folder2, folder, filet)
-            pfhttp = os.path.join(folder2, folder, filet)
-            print(pfhttp)
-            data = {
-                'pfidx': idx,
-                'pfpath': pfpath,
-                'pfhttp': pfhttp
-            }
-            conn = self.connect_to_db()
-            cursor = conn.cursor()
-            cursor.execute('''
-                INSERT OR IGNORE INTO picinfo (pfidx, pfpath, pfhttp)
-                VALUES (:pfidx, :pfpath, :pfhttp)
-            ''', data)
-            conn.commit()
-            conn.close()
+    def get_file_info(self, file, idx):
+        idx += 1
+        pfpath = file
+        print(idx)
+        print(pfpath)
+        dir, filet = os.path.split(file)
+        kir, folder = os.path.split(dir)
+        _, folder2 = os.path.split(kir)
+        # pfhttp = os.path.join('/static/', folder2, folder, filet)
+        pfhttp = os.path.join(folder2, folder, filet)
+        print(pfhttp)
+        data = {
+            'pfidx': idx,
+            'pfpath': pfpath,
+            'pfhttp': pfhttp
+        }
+        conn = self.connect_to_db()
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT OR IGNORE INTO picinfo (pfidx, pfpath, pfhttp)
+            VALUES (:pfidx, :pfpath, :pfhttp)
+        ''', data)
+        conn.commit()
+        conn.close()
 
     def place_service_file(self):
         
