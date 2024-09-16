@@ -76,7 +76,8 @@ class Setup:
             dir, filet = os.path.split(file)
             kir, folder = os.path.split(dir)
             _, folder2 = os.path.split(kir)
-            pfhttp = os.path.join('/static/', folder2, folder, filet)
+            # pfhttp = os.path.join('/static/', folder2, folder, filet)
+            pfhttp = os.path.join(folder2, folder, filet)
             print(pfhttp)
             data = {
                 'pfidx': idx,
